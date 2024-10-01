@@ -1,4 +1,6 @@
 import json
+import csv
+import io
 
 
 class Graph:
@@ -57,9 +59,14 @@ class Graph:
 def main(json_str: str):
     graph = Graph(json_str)
     l = graph.process()
-    print(l)
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerows(l)
+    csv_result = output.getvalue()
+    return csv_result
 
 
 with open('Graph.json', 'r') as file:
     raw_g = file.read()
-main(raw_g)
+print(main(raw_g))
+
